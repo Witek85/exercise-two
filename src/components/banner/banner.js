@@ -3,7 +3,7 @@ import './banner.css';
 
 function Banner() {
   const [hover, setHover] = useState(false);
-  const toggleHover = () => setHover(!hover);
+  const toggleHover = () => setHover(true);
 
   return (
     <div className="banner">
