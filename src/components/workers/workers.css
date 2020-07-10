@@ -18,6 +18,10 @@
 	height: 30px;
 }
 
+.workers > span.hover {
+	color: red;
+}
+
 .workers > span.workers-top {
 	height: 60px;
 	grid-column: 1/3;

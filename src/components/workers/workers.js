@@ -9,6 +9,8 @@ class Workers extends Component {
         firstName: '',
         surname: ''
       },
+      error: "",
+      hover: null,
       workers: [
         {id:1, firstName:'Jan', surname: 'Kowalski'},
         {id:2, firstName:'Jan', surname: 'Kowalski'},
@@ -24,6 +26,7 @@ class Workers extends Component {
     const formData = this.state.formData;
     this.setState(prevstate => (
       {
+        error: '',
         workers: [...prevstate.workers],
         formData: {
           ...formData,
@@ -42,12 +45,36 @@ class Workers extends Component {
     ));
   }
 
+  onHover = (id) => {
+    this.setState(prevstate => (
+      {
+        ...prevstate,
+        hover: id
+      }
+    ));
+  }
+
+  
+  onHoverEnd = () => {
+    this.setState(prevstate => (
+      {
+        ...prevstate,
+        hover: null
+      }
+    ));
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     const newWorker = {...this.state.formData}
+    const nextId = this.state.workers.length > 0 ? this.state.workers[this.state.workers.length-1].id + 1 : 0
 
     if (this.state.formData.firstName === "" && this.state.formData.surname === "") {
-      alert('pola nie mogą być puste')
+      this.setState(prevstate => ({
+          ...prevstate,
+          error: "Pola nie mogą być puste"  
+        })      
+      )
     } else {
       this.setState(prevstate => {
         return (
@@ -59,7 +86,7 @@ class Workers extends Component {
             workers: [
               ...prevstate.workers,
               {
-                id: prevstate.workers[prevstate.workers.length-1].id + 1,
+                id: nextId,
                 firstName: newWorker.firstName,
                 surname: newWorker.surname
               }
@@ -76,19 +103,20 @@ class Workers extends Component {
         <div className="workers-form">
           <form onSubmit={this.handleSubmit}>
             Imię
-            <input type="text" name="firstName" defaultValue={this.state.formData.firstName} onChange={this.onChange} />
+            <input type="text" name="firstName" value={this.state.formData.firstName} onChange={this.onChange} />
             Nazwisko
-            <input type="text" name="surname" defaultValue={this.state.formData.surname} onChange={this.onChange} />
+            <input type="text" name="surname" value={this.state.formData.surname} onChange={this.onChange} />
             <input type="submit" value="Wyślij" disabled={this.state.workers.length >= 5} />
           </form>
+          {this.state.error && <p>{this.state.error}</p>}
         </div>
         <div className="workers">
           <span className="workers-top">Pracownicy</span>
             {this.state.workers.map(worker => 
             <>
-              <span className="worker-left">{worker.firstName}</span>
-              <span className="worker-right">{worker.surname}
-              <button type="button" onClick={() => this.onDelete(worker.id)}>delete</button> 
+              <span className={worker.id === this.state.hover ? 'worker-left hover' : 'worker-left'}>{worker.firstName}</span>
+              <span className={worker.id === this.state.hover ? 'worker-right hover' : 'worker-right'}>{worker.surname}
+              <button type="button" onMouseOver={() => this.onHover(worker.id)} onMouseOut={this.onHoverEnd}  onClick={() => this.onDelete(worker.id)}>delete</button> 
               </span>
             </>
            )
