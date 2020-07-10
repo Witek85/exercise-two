@@ -1,0 +1,33 @@
+.main {
+	background: grey;
+	box-sizing: border-box;
+	position: relative;
+	width: 100%;
+	padding: 0 100px;
+	min-height: 2500px;
+	margin-top: 50px;
+}
+
+.main:before {
+	content: '';
+	display: block;
+	width: 100px;
+	height: 100%;
+	background: rgba(255,255,255,1);
+	background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.main:after {
+	content: '';
+	display: block;
+	width: 100px;
+	height: 100%;
+	background: rgba(255,255,255,1);
+	background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+	position: absolute;
+	top: 0;
+	right: 0;
+}
