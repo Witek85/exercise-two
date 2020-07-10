@@ -33,6 +33,15 @@ class Workers extends Component {
     ));
   }
 
+  onDelete = (id) => {
+    this.setState(prevstate => (
+      {
+        ...prevstate,
+        workers: prevstate.workers.filter(worker => worker.id !== id),
+      }
+    ));
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     const newWorker = {...this.state.formData}
@@ -59,9 +68,6 @@ class Workers extends Component {
         )
       });
     }
-
-
-
   }
 
   render() {
@@ -78,14 +84,13 @@ class Workers extends Component {
         </div>
         <div className="workers">
           <span className="workers-top">Pracownicy</span>
-            {this.state.workers.map(worker => {
-              console.log(worker);
-              return  <>
+            {this.state.workers.map(worker => 
+            <>
               <span className="worker-left">{worker.firstName}</span>
               <span className="worker-right">{worker.surname}
+              <button type="button" onClick={() => this.onDelete(worker.id)}>delete</button> 
               </span>
             </>
-            }
            )
           }
         </div>
