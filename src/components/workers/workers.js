@@ -69,7 +69,7 @@ class Workers extends Component {
     const newWorker = {...this.state.formData}
     const nextId = this.state.workers.length > 0 ? this.state.workers[this.state.workers.length-1].id + 1 : 0
 
-    if (this.state.formData.firstName === "" && this.state.formData.surname === "") {
+    if (this.state.formData.firstName === "" || this.state.formData.surname === "") {
       this.setState(prevstate => ({
           ...prevstate,
           error: "Pola nie mogą być puste"  
