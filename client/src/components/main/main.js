@@ -11,8 +11,7 @@ function Main() {
 
       <div className="main">
         <Banner />
-        <Route exact path="/" component={About} />
-        {/* <Route exact path="/" component={Fib} /> */}
+        <Route exact path="/" component={Fib} />
         <Route exact path="/workers" component={Workers} />
         <Route exact path="/about" component={About} />
       </div>
